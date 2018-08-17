@@ -1,0 +1,1 @@
+org.springframework.boot.env.EnvironmentPostProcessor=pers.jarome.redis.wclient.app.component.processor.CustomEnvironmentPostProcessor

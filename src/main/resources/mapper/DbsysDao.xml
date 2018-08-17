@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="pers.jarome.redis.wclient.core.biz.sys.dao.DbsysDao">
+    <select id="getCountByQuery" parameterType="pers.jarome.redis.wclient.core.biz.sys.query.DbsysQuery"
+            resultType="java.lang.Integer">
+        select count(name) from sqlite_master
+        <where>
+            <if test="type != null and type != ''">
+                and type = #{type,jdbcType=VARCHAR}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
+    <update id="executeSql" parameterType="java.lang.String">
+        ${sql}
+    </update>
+</mapper>
