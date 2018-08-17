@@ -5,11 +5,11 @@ import org.mybatis.spring.SqlSessionFactoryBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import pers.jarome.redis.wclient.app.properties.DataSourceProperties;
 import pers.jarome.redis.wclient.common.system.constant.SystemConstants;
 
 import javax.sql.DataSource;
@@ -34,7 +34,7 @@ public class MybatisInitConfig {
         String rcHomeEnv = System.getenv(SystemConstants.REDIS_WCLIENT_HOME);
         String jdbcUrl = "jdbc:sqlite:" + rcHomeEnv + "/" + SystemConstants.DB_FILE_NAME;
         dataSourceProperties.setUrl(jdbcUrl);
-        DataSource dataSource = dataSourceProperties.initializeDataSourceBuilder().build();
+        DataSource dataSource = dataSourceProperties.createDataSource();
         SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
         sqlSessionFactoryBean.setDataSource(dataSource);
 
