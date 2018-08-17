@@ -20,9 +20,9 @@ import java.io.IOException;
  * @date 2018/8/17 11:20
  */
 @Controller
-public class AssistController extends ARC4.Base {
+public class AssistApi extends ARC4.Base {
 
-    private static Logger logger = LoggerFactory.getLogger(AssistController.class);
+    private static Logger logger = LoggerFactory.getLogger(AssistApi.class);
 
     /**
      * 验证码接口

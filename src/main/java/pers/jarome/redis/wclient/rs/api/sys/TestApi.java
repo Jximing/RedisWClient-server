@@ -1,5 +1,8 @@
 package pers.jarome.redis.wclient.rs.api.sys;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -17,13 +20,15 @@ import pers.jarome.redis.wclient.rs.api.BaseController;
  * @date 2018/8/17 11:22
  */
 @Controller
-public class TestController extends BaseController {
+@Api(description = "测试Api")
+public class TestApi extends BaseController {
 
-    private static Logger logger = LoggerFactory.getLogger(TestController.class);
+    private static Logger logger = LoggerFactory.getLogger(TestApi.class);
 
+    @ApiOperation(value = "测试加密服务")
     @EncryptBody
-    @PostMapping(value = "/t")
-    public UserDo t(@EncryptBody UserDo user) {
+    @PostMapping(value = "/encryptTest")
+    public UserDo encryptTest(@ApiParam(required = true)@EncryptBody UserDo user) {
         return user;
     }
 }

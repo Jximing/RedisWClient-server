@@ -31,9 +31,9 @@ import javax.servlet.http.HttpServletRequest;
  * @version 1.0.0
  */
 @RestController
-public class IndexController extends BaseController {
+public class IndexApi extends BaseController {
 
-    private static Logger logger = LoggerFactory.getLogger(IndexController.class);
+    private static Logger logger = LoggerFactory.getLogger(IndexApi.class);
 
     @Autowired
     @Qualifier("mapCacheServie")
