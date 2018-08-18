@@ -50,4 +50,3 @@ rwc:
     admin: admin
     db:
       file-path: rediswclient.db
-      us
