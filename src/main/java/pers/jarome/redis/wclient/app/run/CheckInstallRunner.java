@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+import pers.jarome.redis.wclient.app.properties.SysProperties;
 import pers.jarome.redis.wclient.common.constant.CacheConstants;
 import pers.jarome.redis.wclient.common.system.constant.SystemConstants;
 import pers.jarome.redis.wclient.core.biz.sys.domain.UserDo;
@@ -32,11 +33,13 @@ public class CheckInstallRunner implements CommandLineRunner {
     @Autowired
     @Qualifier("mapCacheServie")
     private CacheService cacheServie;
+    @Autowired
+    private SysProperties sysProperties;
 
     @Override
     public void run(String... strings){
         LOGGER.info("CheckInstallRunner running");
-        UserDo user = userService.getByUsername(SystemConstants.ADMIN_NAME);
+        UserDo user = userService.getByUsername(sysProperties.getAdmin());
         if (user == null) {
             //user 为空，则需显示install页面
             cacheServie.put(CacheConstants.IS_INSTALL, true);

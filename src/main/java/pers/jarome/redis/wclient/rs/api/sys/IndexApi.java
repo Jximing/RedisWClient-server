@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import pers.jarome.redis.wclient.app.properties.SysProperties;
 import pers.jarome.redis.wclient.common.constant.CacheConstants;
 import pers.jarome.redis.wclient.common.exception.NoUserException;
 import pers.jarome.redis.wclient.common.exception.PasswordMissException;
@@ -41,6 +42,8 @@ public class IndexApi extends BaseController {
     @Autowired
     @Qualifier("userService")
     private UserService userService;
+    @Autowired
+    private SysProperties sysProperties;
 
     @GetMapping(value = ApiPath.CONFIG)
     public ResultEntity<WclientConfigVo> config(){
@@ -57,12 +60,12 @@ public class IndexApi extends BaseController {
         if (!StringUtils.equals(password, rePassword)) {
             return failed("两次密码不一致");
         }
-        UserDo user = userService.getByUsername(SystemConstants.ADMIN_NAME);
+        UserDo user = userService.getByUsername(sysProperties.getAdmin());
         if (user != null) {
             return failed("已初始化，不能重复操作");
         }
         //添加admin账户
-        userService.addUser(SystemConstants.ADMIN_NAME, password);
+        userService.addUser(sysProperties.getAdmin(), password);
         //删除缓存
         cacheServie.del(CacheConstants.IS_INSTALL);
         return success("初始化成功");

@@ -1,33 +1,29 @@
-package pers.jarome.redis.wclient.app.config;
+package pers.jarome.redis.wclient.app.filter;
 
 import com.alibaba.druid.support.http.StatViewServlet;
 import com.alibaba.druid.support.http.WebStatFilter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import pers.jarome.redis.wclient.app.properties.DataSourceProperties;
-import pers.jarome.redis.wclient.app.run.CheckInstallRunner;
+import pers.jarome.redis.wclient.app.properties.SysDbProperties;
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * DataSourceConfig
- *
+ * 
+ * DruidWebStatFilter
+ * @description Druid Monitor Filter
  * @author jiangliuhong
- * @description 数据源配置
- * @date 2018/8/17 16:31
+ * @date 2018/8/18 11:13
  */
 @Configuration
-@EnableConfigurationProperties(DataSourceProperties.class)
-public class DataSourceConfig {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(CheckInstallRunner.class);
+@EnableConfigurationProperties(SysDbProperties.class)
+public class DruidWebStatFilter {
 
     /**
      * DataSourceConfig
@@ -36,13 +32,17 @@ public class DataSourceConfig {
      * @date 2018/8/17 16:50
      */
     @Bean
-    public ServletRegistrationBean statViewServlet(){
+    public ServletRegistrationBean statViewServlet(SysDbProperties sysDbProperties){
         ServletRegistrationBean bean = new ServletRegistrationBean(new StatViewServlet(), "/druid/*");
         Map<String,String> initParams = new HashMap<>(4);
         //登录druid监控的账户
-        initParams.put("loginUsername","admin");
+        initParams.put("loginUsername",sysDbProperties.getDruidMonitorUsername());
         //登录druid监控的密码
-        initParams.put("loginPassword","admin");
+        initParams.put("loginPassword",sysDbProperties.getDruidMonitorPassword());
+
+//        initParams.put("loginUsername","admin");
+//        //登录druid监控的密码
+//        initParams.put("loginPassword","admin");
         //默认就是允许所有访问
         initParams.put("allow","");
         //黑名单的IP
@@ -51,7 +51,7 @@ public class DataSourceConfig {
         return bean;
     }
 
-    
+
     /**
      * DataSourceConfig
      * @description 配置一个web监控的filter
@@ -68,6 +68,4 @@ public class DataSourceConfig {
         bean.setUrlPatterns(Arrays.asList("/*"));
         return  bean;
     }
-
-
 }
