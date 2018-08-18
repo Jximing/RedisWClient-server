@@ -8,6 +8,7 @@ import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.PropertiesPropertySource;
 import org.springframework.stereotype.Component;
 import pers.jarome.redis.wclient.common.exception.CustomizedRuntimeException;
+import pers.jarome.redis.wclient.common.exception.NoEnvException;
 import pers.jarome.redis.wclient.common.system.constant.SystemConstants;
 import pers.jarome.redis.wclient.common.system.util.EnvironmentUtils;
 
@@ -76,17 +77,21 @@ public class CustomEnvironmentPostProcessor implements EnvironmentPostProcessor 
     @Override
     public void postProcessEnvironment(ConfigurableEnvironment configurableEnvironment, SpringApplication springApplication) {
         log.info("Load the configuration file under the environment variable,starting.");
-        //获取环境变量
-        String rcHomeEnv = EnvironmentUtils.getEnv(SystemConstants.REDIS_WCLIENT_HOME);
-        List<Properties> properties = readProperty(rcHomeEnv + CONFIG_PATH);
-        if (properties.size() > 0) {
-            //如果环境变量下存在配置文件，则移除springboot项目中的配置
-            configurableEnvironment.getPropertySources().remove("applicationConfigurationProperties");
-            for (int i = 0; i < properties.size(); i++) {
-                PropertiesPropertySource propertySource = new PropertiesPropertySource(SOURCE_NAME+"_"+i, properties.get(i));
-                configurableEnvironment.getPropertySources().addLast(propertySource);
+        try {
+            //获取环境变量
+            String rcHomeEnv = EnvironmentUtils.getEnv(SystemConstants.REDIS_WCLIENT_HOME);
+            List<Properties> properties = readProperty(rcHomeEnv + CONFIG_PATH);
+            if (properties.size() > 0) {
+                //如果环境变量下存在配置文件，则移除springboot项目中的配置
+                configurableEnvironment.getPropertySources().remove("applicationConfigurationProperties");
+                for (int i = 0; i < properties.size(); i++) {
+                    PropertiesPropertySource propertySource = new PropertiesPropertySource(SOURCE_NAME+"_"+i, properties.get(i));
+                    configurableEnvironment.getPropertySources().addLast(propertySource);
+                }
             }
+            log.info("Load the configuration file under the environment variable,end.");
+        } catch (NoEnvException e) {
+            log.warn("Not found Environment for " + SystemConstants.REDIS_WCLIENT_HOME);
         }
-        log.info("Load the configuration file under the environment variable,end.");
     }
 }

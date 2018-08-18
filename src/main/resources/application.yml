@@ -1,3 +1,9 @@
+rwc:
+  sys:
+    admin: admin
+    environment-home: ${REDIS_WCLIENT_HOME:./}
+    db:
+      file-path: rediswclient.db
 server:
   port: 8080
   servlet:
@@ -15,7 +21,7 @@ spring:
           driver-class-name: org.sqlite.JDBC
           #基本属性
           #url: jdbc:sqlite:rediswclient.db
-          url: jdbc:sqlite:temp.temp
+          url: jdbc:sqlite:${rwc.sys.environment-home}temp.db
           username:
           password:
           #配置初始化大小/最小/最大
@@ -28,7 +34,7 @@ spring:
           time-between-eviction-runs-millis: 60000
           #一个连接在池中最小生存的时间
           min-evictable-idle-time-millis: 300000
-          validation-query: SELECT 'x'
+          validation-query: SELECT 1
           test-while-idle: true
           test-on-borrow: false
           test-on-return: false
@@ -45,8 +51,3 @@ pagehelper:
     supportMethodsArguments: true
     params: count=countSql
     returnPageInfo: check
-rwc:
-  sys:
-    admin: admin
-    db:
-      file-path: rediswclient.db

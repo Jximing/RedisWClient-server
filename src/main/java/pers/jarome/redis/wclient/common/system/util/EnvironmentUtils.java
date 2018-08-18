@@ -28,7 +28,6 @@ public class EnvironmentUtils {
         //获取环境变量
         String rcHomeEnv = System.getenv(envName);
         if (StringUtils.isBlank(rcHomeEnv)) {
-            LOGGER.error("没有找到环境变量:" + envName);
             throw new NoEnvException("没有找到环境变量:" + envName);
         }
         return rcHomeEnv;

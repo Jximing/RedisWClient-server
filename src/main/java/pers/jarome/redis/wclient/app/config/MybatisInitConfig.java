@@ -1,5 +1,6 @@
 package pers.jarome.redis.wclient.app.config;
 
+import com.alibaba.druid.pool.DruidDataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.slf4j.Logger;
@@ -30,15 +31,25 @@ public class MybatisInitConfig {
     private DataSourceProperties dataSourceProperties;
     @Autowired
     private SysDbProperties sysDbProperties;
+    @Autowired
+    private DataSource dataSource;
 
-    @Bean
+
     public SqlSessionFactory sqlSessionFactoryBean() throws Exception {
 
         //注入url
         String rcHomeEnv = System.getenv(SystemConstants.REDIS_WCLIENT_HOME);
         String jdbcUrl = "jdbc:sqlite:" + rcHomeEnv + "/" +sysDbProperties.getFilePath();
-        dataSourceProperties.setUrl(jdbcUrl);
-        DataSource dataSource = dataSourceProperties.initializeDataSourceBuilder().build();
+//        dataSourceProperties.setUrl(jdbcUrl);
+//        DataSource dataSource = dataSourceProperties.initializeDataSourceBuilder().build();
+        if(dataSource instanceof DruidDataSource){
+            System.out.println("111");
+            ((DruidDataSource)dataSource).restart();
+            ((DruidDataSource)dataSource).setUrl(jdbcUrl);
+            ((DruidDataSource)dataSource).restart();
+            ((DruidDataSource)dataSource).init();
+        }
+
         SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
         sqlSessionFactoryBean.setDataSource(dataSource);
 

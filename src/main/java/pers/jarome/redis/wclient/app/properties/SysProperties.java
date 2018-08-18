@@ -20,8 +20,14 @@ public class SysProperties {
 
     private static final Log LOG = LogFactory.getLog(SysProperties.class);
 
+    /**
+     * 超级管理员用户名
+     */
     private String admin;
-
+    /**
+     * 系统环境根目录
+     */
+    private String environmentHome;
 
     public String getAdmin() {
         return admin;
@@ -31,5 +37,11 @@ public class SysProperties {
         this.admin = admin;
     }
 
+    public String getEnvironmentHome() {
+        return environmentHome;
+    }
 
+    public void setEnvironmentHome(String environmentHome) {
+        this.environmentHome = environmentHome;
+    }
 }
