@@ -5,6 +5,7 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.HandlerMethodReturnValueHandler;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import pers.jarome.redis.wclient.common.web.encrypt.method.handler.EncryptBodyRturnValueHandler;
 import pers.jarome.redis.wclient.common.web.encrypt.method.resolver.EncryptArgumentResolver;
@@ -25,7 +26,7 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         InterceptorRegistration ir = registry.addInterceptor(new AuthenticationInterceptor());
-        ir.addPathPatterns("/**");
+        ir.addPathPatterns("/api/*");
     }
 
     @Override
