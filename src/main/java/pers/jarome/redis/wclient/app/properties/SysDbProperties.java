@@ -52,4 +52,5 @@ public class SysDbProperties {
     public void setDruidMonitorPassword(String druidMonitorPassword) {
         this.druidMonitorPassword = druidMonitorPassword;
     }
+
 }
