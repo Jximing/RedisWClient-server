@@ -28,11 +28,11 @@ import java.util.Properties;
  * @date 2018/8/12 0:24
  */
 @Component
-public class CustomEnvironmentPostProcessor implements EnvironmentPostProcessor {
+public class ConfigEnvironmentPostProcessor implements EnvironmentPostProcessor {
 
     private final Log log;
 
-    public CustomEnvironmentPostProcessor() {
+    public ConfigEnvironmentPostProcessor() {
         this.log = LogFactory.getLog(getClass());
     }
 
