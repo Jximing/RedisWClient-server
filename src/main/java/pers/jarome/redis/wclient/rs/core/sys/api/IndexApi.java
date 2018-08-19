@@ -5,9 +5,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 import pers.jarome.redis.wclient.app.properties.SysProperties;
 import pers.jarome.redis.wclient.common.constant.CacheConstants;
 import pers.jarome.redis.wclient.common.exception.NoUserException;
@@ -34,7 +33,7 @@ import javax.servlet.http.HttpServletRequest;
  * @date 2018/8/15 21:12
  * @version 1.0.0
  */
-@RestController
+@Controller
 public class IndexApi extends BaseController {
 
     private static Logger logger = LoggerFactory.getLogger(IndexApi.class);
@@ -56,7 +55,8 @@ public class IndexApi extends BaseController {
      * @date 2018/8/19 15:03
      * @version 1.0.0
      */
-    @GetMapping(value = ApiPath.SYS_CONFIG)
+    @RequestMapping(value = ApiPath.SYS_CONFIG,method = RequestMethod.GET)
+    @EncryptBody
     public ResultEntity<WclientConfigVO> config(){
         WclientConfigVO config = new WclientConfigVO();
         config.setInstall(cacheServie.getBoolean(CacheConstants.IS_INSTALL));
