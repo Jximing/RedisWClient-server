@@ -1,14 +1,14 @@
-package pers.jarome.redis.wclient.rs.vo;
+package pers.jarome.redis.wclient.rs.core.sys.vo;
 
 /**
  * 
- * WclientConfigVo
+ * WclientConfigVO
  * @description 系统配置
  * @author jiangliuhong
  * @date 2018/8/15 21:13
  * @version 1.0.0
  */
-public class WclientConfigVo {
+public class WclientConfigVO {
 
     /**
      * 安装状态，true 需要安装

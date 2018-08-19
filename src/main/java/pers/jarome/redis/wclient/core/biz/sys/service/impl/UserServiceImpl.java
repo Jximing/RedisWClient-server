@@ -11,7 +11,7 @@ import pers.jarome.redis.wclient.common.util.Md5Utils;
 import pers.jarome.redis.wclient.common.util.RandomUtils;
 import pers.jarome.redis.wclient.core.biz.sys.service.UserService;
 import pers.jarome.redis.wclient.core.biz.sys.dao.UserDao;
-import pers.jarome.redis.wclient.core.biz.sys.domain.UserDo;
+import pers.jarome.redis.wclient.core.biz.sys.domain.UserDO;
 
 import java.util.Date;
 
@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String login(String username, String password) {
-        UserDo user = getByUsername(username);
+        UserDO user = getByUsername(username);
         if (user == null) {
             throw new NoUserException();
         }
@@ -40,13 +40,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDo getByUsername(String username) {
+    public UserDO getByUsername(String username) {
         return userDao.getByUsername(username);
     }
 
     @Override
     public String addUser(String username, String password, String salt) {
-        UserDo user = new UserDo();
+        UserDO user = new UserDO();
         user.setId(RandomUtils.uuid());
         user.setUsername(username);
         user.setPassword(Md5Utils.encode(password, salt, AuthConstants.HASH_NUM));

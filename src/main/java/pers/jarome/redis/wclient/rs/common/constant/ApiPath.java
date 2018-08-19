@@ -14,6 +14,10 @@ public class ApiPath {
 
     public final static String V_1 = "/v1";
 
-    public final static String CONFIG = BASE + V_1 + "/config";
+    public final static String SYS_CONFIG = BASE + V_1 + "/config";
+
+    public final static String SYS_INIT = BASE + V_1 + "/init";
+
+    public final static String SYS_LOGIN = BASE + V_1 + "/login";
 
 }

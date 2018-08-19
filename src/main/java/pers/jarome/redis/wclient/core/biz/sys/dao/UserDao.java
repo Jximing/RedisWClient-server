@@ -1,6 +1,6 @@
 package pers.jarome.redis.wclient.core.biz.sys.dao;
 
-import pers.jarome.redis.wclient.core.biz.sys.domain.UserDo;
+import pers.jarome.redis.wclient.core.biz.sys.domain.UserDO;
 
 /**
  * @author jarome
@@ -14,7 +14,7 @@ public interface UserDao {
      * @param id
      * @return
      */
-    UserDo getById(Integer id);
+    UserDO getById(Integer id);
 
     /**
      * 根据username查询User
@@ -22,7 +22,7 @@ public interface UserDao {
      * @param username
      * @return
      */
-    UserDo getByUsername(String username);
+    UserDO getByUsername(String username);
 
     /**
      * 新增user
@@ -30,6 +30,6 @@ public interface UserDao {
      * @param user
      * @return id
      */
-    int addUser(UserDo user);
+    int addUser(UserDO user);
 
 }

@@ -5,7 +5,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import pers.jarome.redis.wclient.core.biz.sys.dao.UserDao;
-import pers.jarome.redis.wclient.core.biz.sys.domain.UserDo;
+import pers.jarome.redis.wclient.core.biz.sys.domain.UserDO;
 import pers.jarome.redis.wclient.core.biz.sys.service.UserService;
 import pers.jarome.redis.wclient.test.BaseTest;
 
@@ -23,7 +23,7 @@ public class TestUserDao extends BaseTest {
 
     @Test
     public void t1() {
-        UserDo user = userDao.getById(2);
+        UserDO user = userDao.getById(2);
         LOGGER.info(JSON.toJSONString(user));
     }
 

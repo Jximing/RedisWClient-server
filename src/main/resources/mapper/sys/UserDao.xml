@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="pers.jarome.redis.wclient.core.biz.sys.dao.UserDao">
-    <resultMap id="BaseResultMap" type="pers.jarome.redis.wclient.core.biz.sys.domain.UserDo">
+    <resultMap id="BaseResultMap" type="pers.jarome.redis.wclient.core.biz.sys.domain.UserDO">
         <id column="id" jdbcType="VARCHAR" property="id"/>
         <result column="username" jdbcType="VARCHAR" property="username"/>
         <result column="password" jdbcType="VARCHAR" property="password"/>
@@ -26,7 +26,7 @@
         from user
         where username = #{username}
     </select>
-    <insert id="addUser" parameterType="pers.jarome.redis.wclient.core.biz.sys.domain.UserDo">
+    <insert id="addUser" parameterType="pers.jarome.redis.wclient.core.biz.sys.domain.UserDO">
         insert into user (id,username,password,salt,create_time)
         values
         (#{id,jdbcType=VARCHAR},#{username,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR},#{salt,jdbcType=VARCHAR},#{createTimeStr,jdbcType=VARCHAR})

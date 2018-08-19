@@ -70,7 +70,7 @@ public class ConfigEnvironmentPostProcessor implements EnvironmentPostProcessor 
             }
             return list;
         } catch (IOException e) {
-            throw new CustomizedRuntimeException("Failed to load configuration file under environment variable!", e);
+            throw new CustomizedRuntimeException("Failed param load configuration file under environment variable!", e);
         }
     }
 

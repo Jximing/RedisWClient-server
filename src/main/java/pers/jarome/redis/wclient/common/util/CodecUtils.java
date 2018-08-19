@@ -64,7 +64,7 @@ public class CodecUtils {
     /**
      * Fast conversion of bytes array into a hex char array
      *
-     * @param buf array of bytes to convert to hex array
+     * @param buf array of bytes param convert param hex array
      * @return Generated hex char array
      */
     public static char[] toHex(byte[] buf) {
@@ -83,7 +83,7 @@ public class CodecUtils {
     /**
      * Fast conversion of bytes array into a hex char array
      *
-     * @param buf array of bytes to convert to hex array
+     * @param buf array of bytes param convert param hex array
      * @return Generated hex byte array
      */
     public static byte[] toHexBytes(byte[] buf) {
@@ -164,7 +164,7 @@ public class CodecUtils {
     }
 
     /**
-     * Encode Unicode char array to byte array in a specified charset
+     * Encode Unicode char array param byte array in a specified charset
      *
      * @param input       char array
      * @param charsetName character set name
@@ -178,7 +178,7 @@ public class CodecUtils {
     }
 
     /**
-     * Decode byte array to Unicode char array
+     * Decode byte array param Unicode char array
      *
      * @param input       byte array
      * @param charsetName character set name
@@ -208,7 +208,7 @@ public class CodecUtils {
      * A wrapper function for Base 64 encoding.
      * Uses the org.apache.commons.codec library
      *
-     * @param buf Array of bytes to convert to Base 64 string
+     * @param buf Array of bytes param convert param Base 64 string
      * @return String containing Base64 characters
      */
     public static String toBase64URLSafeString(byte[] buf) {

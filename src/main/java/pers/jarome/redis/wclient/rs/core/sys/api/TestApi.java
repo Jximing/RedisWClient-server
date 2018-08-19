@@ -1,12 +1,12 @@
-package pers.jarome.redis.wclient.rs.api.sys;
+package pers.jarome.redis.wclient.rs.core.sys.api;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import pers.jarome.redis.wclient.common.web.encrypt.anno.EncryptBody;
-import pers.jarome.redis.wclient.core.biz.sys.domain.UserDo;
-import pers.jarome.redis.wclient.rs.api.BaseController;
+import pers.jarome.redis.wclient.core.biz.sys.domain.UserDO;
+import pers.jarome.redis.wclient.rs.common.api.BaseController;
 
 /**
  * TestController
@@ -23,7 +23,7 @@ public class TestApi extends BaseController {
 
     @EncryptBody
     @PostMapping(value = "/encryptTest")
-    public UserDo encryptTest(@EncryptBody UserDo user) {
+    public UserDO encryptTest(@EncryptBody UserDO user) {
         return user;
     }
 }

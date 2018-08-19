@@ -9,7 +9,7 @@ import java.util.Date;
  * @author jarome
  * @date 2017/12/22
  **/
-public class UserDo {
+public class UserDO {
 
     private String id;
     private String username;

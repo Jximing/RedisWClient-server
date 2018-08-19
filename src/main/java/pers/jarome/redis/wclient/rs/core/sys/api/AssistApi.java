@@ -1,10 +1,10 @@
-package pers.jarome.redis.wclient.rs.api.sys;
+package pers.jarome.redis.wclient.rs.core.sys.api;
 
 import org.bouncycastle.jce.provider.symmetric.ARC4;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import pers.jarome.redis.wclient.rs.util.KaptchaUtils;
 
 import javax.servlet.ServletOutputStream;
@@ -30,7 +30,7 @@ public class AssistApi extends ARC4.Base {
      * @param request
      * @param response
      */
-    @RequestMapping(value = "/cha")
+    @GetMapping(value = "/cha")
     public void kaptcha(HttpServletRequest request, HttpServletResponse response) {
         try {
             byte[] captchaChallengeAsJpeg = KaptchaUtils.verificationImg(request);
@@ -39,6 +39,7 @@ public class AssistApi extends ARC4.Base {
             response.setDateHeader("Expires", 0);
             response.setContentType("image/jpeg");
             ServletOutputStream responseOutputStream = response.getOutputStream();
+            assert captchaChallengeAsJpeg != null;
             responseOutputStream.write(captchaChallengeAsJpeg);
             responseOutputStream.flush();
             responseOutputStream.close();

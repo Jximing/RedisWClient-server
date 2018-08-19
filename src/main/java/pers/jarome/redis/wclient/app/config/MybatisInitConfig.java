@@ -59,7 +59,7 @@ public class MybatisInitConfig {
             Resource[] resources = resolver.getResources("classpath:/mapper/*.xml");
             sqlSessionFactoryBean.setMapperLocations(resources);
         } catch (FileNotFoundException ex) {
-            LOGGER.warn("class path resource [mapper/] cannot be resolved to URL because it does not exist");
+            LOGGER.warn("class path resource [mapper/] cannot be resolved param URL because it does not exist");
         }
         return sqlSessionFactoryBean.getObject();
     }

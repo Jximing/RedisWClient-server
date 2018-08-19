@@ -1,6 +1,6 @@
 package pers.jarome.redis.wclient.core.biz.sys.service;
 
-import pers.jarome.redis.wclient.core.biz.sys.domain.UserDo;
+import pers.jarome.redis.wclient.core.biz.sys.domain.UserDO;
 
 /**
  * @author jarome
@@ -25,7 +25,7 @@ public interface UserService {
      * @param username
      * @return
      */
-    UserDo getByUsername(String username);
+    UserDO getByUsername(String username);
 
 
     /**

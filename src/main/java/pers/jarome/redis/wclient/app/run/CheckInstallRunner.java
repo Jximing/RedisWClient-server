@@ -9,8 +9,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import pers.jarome.redis.wclient.app.properties.SysProperties;
 import pers.jarome.redis.wclient.common.constant.CacheConstants;
-import pers.jarome.redis.wclient.common.system.constant.SystemConstants;
-import pers.jarome.redis.wclient.core.biz.sys.domain.UserDo;
+import pers.jarome.redis.wclient.core.biz.sys.domain.UserDO;
 import pers.jarome.redis.wclient.core.biz.sys.service.CacheService;
 import pers.jarome.redis.wclient.core.biz.sys.service.UserService;
 
@@ -39,7 +38,7 @@ public class CheckInstallRunner implements CommandLineRunner {
     @Override
     public void run(String... strings){
         LOGGER.info("CheckInstallRunner running");
-        UserDo user = userService.getByUsername(sysProperties.getAdmin());
+        UserDO user = userService.getByUsername(sysProperties.getAdmin());
         if (user == null) {
             //user 为空，则需显示install页面
             cacheServie.put(CacheConstants.IS_INSTALL, true);
