@@ -73,6 +73,7 @@ public class IndexApi extends BaseController {
      * @version 1.0.0
      */
     @PostMapping(value = ApiPath.SYS_INIT)
+    @EncryptBody
     public ResultEntity<Object> init(@EncryptBody SysInitParam sysInit){
         if (StringUtils.isBlank(sysInit.getPassword()) || StringUtils.isBlank(sysInit.getRePassword())) {
             return failed("参数错误");

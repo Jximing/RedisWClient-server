@@ -5,6 +5,9 @@ import pers.jarome.redis.wclient.common.util.AesUtils;
 import pers.jarome.redis.wclient.common.util.RandomUtils;
 import pers.jarome.redis.wclient.common.web.constant.HttpConstant;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * 加密数据类型
  *
@@ -71,6 +74,13 @@ public class EncryptEntity {
     @Override
     public String toString() {
         return JSON.toJSONString(this);
+    }
+
+    public Map toMap() {
+        Map map = new HashMap(4);
+        map.put("iv", this.getIv());
+        map.put("data", this.getData());
+        return map;
     }
 
 }
