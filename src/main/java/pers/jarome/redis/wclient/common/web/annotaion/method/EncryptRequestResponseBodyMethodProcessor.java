@@ -12,6 +12,8 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.ModelAndViewContainer;
 import org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor;
 import pers.jarome.redis.wclient.common.web.encrypt.anno.EncryptBody;
+import pers.jarome.redis.wclient.common.web.encrypt.method.handler.EncryptBodyRturnValueHandler;
+import pers.jarome.redis.wclient.common.web.encrypt.method.resolver.EncryptArgumentResolver;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -19,12 +21,23 @@ import java.lang.reflect.Type;
 import java.util.List;
 
 /**
- * 
  * EncryptRequestResponseBodyMethodProcessor
- * @description 加密实体读取
+ * <p>
+ * 使用了新的实现方式
+ * </p>
+ * <p>
+ * 不再通过重写RequestResponseBodyMethodProcessor来实现
+ * </p>
+ *<p>
+ *    新的实现逻辑请查看
+ *</p>
+ * @see EncryptBodyRturnValueHandler
+ * @see EncryptArgumentResolver
  * @author jiangliuhong
+ * @description 加密实体读取
  * @date 2018/8/15 18:46
  */
+@Deprecated
 public class EncryptRequestResponseBodyMethodProcessor extends RequestResponseBodyMethodProcessor {
 
     public EncryptRequestResponseBodyMethodProcessor(List<HttpMessageConverter<?>> converters) {
@@ -58,10 +71,6 @@ public class EncryptRequestResponseBodyMethodProcessor extends RequestResponseBo
     @Override
     protected <T> void writeWithMessageConverters(T value, MethodParameter returnType, ServletServerHttpRequest inputMessage, ServletServerHttpResponse outputMessage)
             throws IOException, HttpMediaTypeNotAcceptableException, HttpMessageNotWritableException {
-        //判断是否包含加密注解
-        if(returnType.hasMethodAnnotation(EncryptBody.class)){
-            System.out.println("sssss");
-        }
         super.writeWithMessageConverters(value, returnType, inputMessage, outputMessage);
     }
 
