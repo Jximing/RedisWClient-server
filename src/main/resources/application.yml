@@ -1,7 +1,7 @@
 rwc:
   sys:
     admin: admin
-    environment-home: ${REDIS_WCLIENT_HOME:./}
+    environment-home: ${REDIS_WCLIENT_HOME:.}
     db:
       file-path: rediswclient.db
 server:
@@ -21,7 +21,7 @@ spring:
           driver-class-name: org.sqlite.JDBC
           #基本属性
           #url: jdbc:sqlite:rediswclient.db
-          url: jdbc:sqlite:${rwc.sys.environment-home}temp.db
+          url: jdbc:sqlite:${rwc.sys.environment-home}/RedisWClient.db
           username:
           password:
           #配置初始化大小/最小/最大
@@ -38,9 +38,9 @@ spring:
           test-while-idle: true
           test-on-borrow: false
           test-on-return: false
-          #打开PSCache，并指定每个连接上PSCache的大小。oracle设为true，mysql设为false。分库分表较多推荐设置为false
-          pool-prepared-statements: true
-          max-pool-prepared-statement-per-connection-size: 20
+          #Druid不支持SQLite，必须设置false 与 0 才行
+          pool-prepared-statements: false
+          max-pool-prepared-statement-per-connection-size: 0
           max-open-prepared-statements: 0
 mybatis:
   mapper-locations: classpath:mapper/*.xml
