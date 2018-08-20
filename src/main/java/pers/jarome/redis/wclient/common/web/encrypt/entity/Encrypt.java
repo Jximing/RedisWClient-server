@@ -10,6 +10,6 @@ public interface Encrypt {
 
     public <T> T decode(String source,Class<T> type);
 
-    public <T> T decode(String source, Type type);
+    public Object decode(String source, Type type);
 
 }

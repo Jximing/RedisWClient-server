@@ -1,12 +1,12 @@
 package pers.jarome.redis.wclient.common.web.encrypt.method.resolver;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 import pers.jarome.redis.wclient.common.web.encrypt.anno.EncryptBody;
-import pers.jarome.redis.wclient.common.web.encrypt.constants.EncryptMethod;
 import pers.jarome.redis.wclient.common.web.encrypt.entity.Encrypt;
 import pers.jarome.redis.wclient.common.web.encrypt.exception.EncryptException;
 import pers.jarome.redis.wclient.common.web.encrypt.method.AbstractEcryptMappingHadler;
@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.Type;
 
 /**
  * EncryptArgumentResolver
@@ -35,12 +36,21 @@ public class EncryptArgumentResolver extends AbstractEcryptMappingHadler impleme
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
         EncryptBody encryptBody = parameter.getAnnotatedElement().getAnnotation(EncryptBody.class);
         String body = getRequestBody(webRequest);
-        Encrypt encrypt = getEncrypt(encryptBody.method());
-        if(encrypt == null){
-            throw new EncryptException("Not Found Encrypt.");
+        Object resultData = null;
+        Type type = parameter.getNestedGenericParameterType();
+        if (StringUtils.isNotBlank(body)) {
+            Encrypt encrypt = getEncrypt(encryptBody.method());
+            if (encrypt == null) {
+                throw new EncryptException("Not Found Encrypt.");
+            }
+            resultData = encrypt.decode(body, type);
         }
-        return encrypt.decode(body, parameter.getNestedGenericParameterType());
-
+        if (resultData == null) {
+            //body为空或解密后为空，为方便方法内调用，new一个空对象
+            Class<?> clazz = Class.forName(type.getTypeName());
+            resultData = clazz.newInstance();
+        }
+        return resultData;
     }
 
     private Boolean hasEncryptAnnotaion(MethodParameter parameter) {

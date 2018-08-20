@@ -36,7 +36,7 @@ public class AesEncrypt extends AbstractEncrypt implements Encrypt {
     }
 
     @Override
-    public <T> T decode(String source, Type type) {
+    public Object decode(String source, Type type) {
         return parseObject(decode(source),type);
     }
 }
